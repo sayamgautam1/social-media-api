@@ -1,11 +1,11 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 //Schema for what makes up a reaction
 
 const reactionSchema = new Schema({
   reactionId: {
-    type: ObjectId,
-    default: ObjectId,
+    type: Schema.Types.ObjectId,
+    default: () => new Types.ObjectId(),
   },
   reactonBody: {
     type: String,
@@ -46,6 +46,6 @@ thoughtSchema.virtual("reactionCount").get(function () {
 });
 
 // Initialize the Comment model
-const Thoughts = model("Thoughts", thoughtSchema);
+const Thought = model("thought", thoughtSchema);
 
-module.exports = Thoughts;
+module.exports = Thought;
