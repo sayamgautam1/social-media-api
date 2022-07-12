@@ -15,35 +15,37 @@ connection.once("open", async () => {
   await Thought.deleteMany({});
 
   const users = [];
-  const thought = [];
+  const thoughts = [];
 
   for (let i = 0; i < 2; i++) {
-    const username = getRandomName();
-    const thoughtName = username;
-    const email = getRandomEmail();
-
-    users.push({
-      username,
-      email,
-      thought,
-    });
-
-    thought.push({
+    thoughts.push({
       thoughtText: getRandomThought(),
-      username,
+      username: getRandomName(),
       reactions: {
         reactionBody: getRandomResponse(),
         name: getRandomName(),
       },
     });
   }
+  await Thought.collection.insertMany(thoughts);
+
+  for (let i = 0; i < 2; i++) {
+    const username = getRandomName();
+
+    const email = getRandomEmail();
+
+    users.push({
+      username,
+      email,
+      thoughts: thoughts[i]._id,
+    });
+  }
 
   await User.collection.insertMany(users);
-  await Thought.collection.insertMany(thought);
 
   // loop through the saved videos, for each video we need to generate a video response and insert the video responses
   console.table(users);
-  console.table(thought);
+  console.table(thoughts);
   console.info("Seeding complete! 🌱");
   process.exit(0);
 });
