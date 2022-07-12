@@ -17,19 +17,24 @@ connection.once("open", async () => {
   const users = [];
   const thought = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 2; i++) {
     const username = getRandomName();
+    const thoughtName = username;
     const email = getRandomEmail();
-    thought.push({
-      thoughtText: getRandomThought(),
-      username,
-      reactons: getRandomResponse(),
-    });
 
     users.push({
       username,
       email,
       thought,
+    });
+
+    thought.push({
+      thoughtText: getRandomThought(),
+      username,
+      reactions: {
+        reactionBody: getRandomResponse(),
+        name: getRandomName(),
+      },
     });
   }
 
