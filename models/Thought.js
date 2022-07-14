@@ -53,7 +53,7 @@ const thoughtSchema = new Schema(
   }
 );
 
-// get methode to return created at time
+// get method to return created at time
 
 function createdAtTime() {
   return moment().format("MMMM Do YYYY, h:mm:ss a");
