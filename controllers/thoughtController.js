@@ -55,4 +55,26 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+  // Deletes a thought from the database. Looks for an thought by ID.
+  // Then if the thought exists, we look for any users associated with the thought based on he thought ID and update the thoughts for the User.
+  deleteThought(req, res) {
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: "No application with this id!" })
+          : User.findOneAndUpdate(
+              { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { new: true }
+            )
+      )
+      .then((user) =>
+        !user
+          ? res.status(404).json({
+              message: "Thought removed but no user with this id!",
+            })
+          : res.json({ message: "Thought successfully deleted!" })
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
