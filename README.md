@@ -4,6 +4,10 @@
  ## Description
  🔍 an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
+Live demo of the project can be found here
+
+[part1](https://youtu.be/JxBzd46N_b4) [part2](https://youtu.be/hpd6VeeC9ck)
+
 # User Story
 
 ```
